@@ -20,4 +20,10 @@ public class Door : MonoBehaviour, IInteractable
             RoomManager.instance.ChangeRooms(this, linkedDoor);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(this.transform.position, linkedDoor.transform.position, Color.blue);
+    }
+
 }

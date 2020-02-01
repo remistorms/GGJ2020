@@ -22,8 +22,22 @@ public class RoomManager : MonoBehaviour
 
     IEnumerator _ChangeRooms(Door currentDoor, Door nextDoor)
     {
+        m_PreviousRoom = currentDoor.parentRoom;
+        m_CurrentRoom = nextDoor.parentRoom;
+        m_CurrentRoom.gameObject.SetActive(true);
         yield return null;
         //TODO Fade transitions to hide tricks
         FindObjectOfType<Player>().transform.position = nextDoor.playerSpawnPoint.position;
+
+        m_PreviousRoom.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        foreach (var room in AllRooms)
+        {
+            room.gameObject.SetActive(false);
+        }
+        m_CurrentRoom.gameObject.SetActive(true);
     }
 }
