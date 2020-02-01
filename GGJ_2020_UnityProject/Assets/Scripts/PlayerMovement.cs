@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_RotateSpeed;
 
     private CharacterController m_CharacterController;
+    private Transform cameraPivot;
     private float desiredAngle;
 
     private void Awake()
@@ -15,11 +16,19 @@ public class PlayerMovement : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
     }
 
+    private void Start()
+    {
+        cameraPivot = FindObjectOfType<CameraRig>().GetCameraPivot();
+    }
+
     private void Update()
     {
         //Gets the move direction from left stick or arrow inputs and moves the character
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         moveDirection = moveDirection.normalized;
+        //makes the motion relative to the camera pivot
+        moveDirection = cameraPivot.TransformDirection( moveDirection );
+
         m_CharacterController.SimpleMove(moveDirection * m_MoveSpeed);
         
         //Angle from character forward and world forward

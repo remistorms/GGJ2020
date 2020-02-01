@@ -29,11 +29,13 @@ public class CameraRig : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            Debug.Log("Bumper Pressed");
             RotateCamera(90);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("Bumper Pressed");
             RotateCamera(-90);
         }
 
@@ -49,5 +51,10 @@ public class CameraRig : MonoBehaviour
     private void LateUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, cameraTarget.position, Time.deltaTime * followSpeed);
+    }
+
+    public Transform GetCameraPivot()
+    {
+        return cameraPivot;
     }
 }

@@ -57,7 +57,7 @@ public class EnemyPatrol : StateMachineBehaviour
 
         if(Physics.SphereCast(enemyRay, 0.3f, out hit, 100))
         {
-            Debug.Log("Enemy view is detecting: " + hit.collider.name);
+            //Debug.Log("Enemy view is detecting: " + hit.collider.name);
 
             if (hit.collider.tag == "Player")
             {
