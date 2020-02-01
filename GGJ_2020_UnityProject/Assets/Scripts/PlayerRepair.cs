@@ -77,6 +77,17 @@ public class PlayerRepair : MonoBehaviour
 
     }
 
+    public void AddBolts(int boltsToAdd)
+    {
+        m_PlayerBolts.Value += boltsToAdd;
+    }
+
+    public void RemoveBolts(int boltsToRemove)
+    {
+        m_PlayerBolts.Value -= boltsToRemove;
+    }
+
+
     void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position

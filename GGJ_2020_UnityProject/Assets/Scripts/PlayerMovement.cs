@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Gets the move direction from left stick or arrow inputs and moves the character
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        moveDirection = moveDirection.normalized;
         m_CharacterController.SimpleMove(moveDirection * m_MoveSpeed);
         
         //Angle from character forward and world forward
