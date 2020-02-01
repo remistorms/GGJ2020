@@ -18,22 +18,51 @@ public class EnemyPatrol : StateMachineBehaviour
         enemy = animator.GetComponent<Enemy>();
         navMeshAgent = animator.GetComponent<NavMeshAgent>();
         patrolPoints = enemy.GetPatrolPoints();
-
-        currentPatrolTarget = patrolPoints[0];
+        currentPatrolTargetIndex = 0;
+        currentPatrolTarget = patrolPoints[currentPatrolTargetIndex];
         navMeshAgent.SetDestination(currentPatrolTarget.position);
         navMeshAgent.isStopped = false;
+        enemy.ChangeColor(Color.gray);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("Patrol State Update : " + patrolPoints.Length + " patrol points found");
+        //Debug.Log("Patrol State Update : " + patrolPoints.Length + " patrol points found");
+
 
         distanceFromCurrentTarget = Vector3.Distance( animator.transform.position, currentPatrolTarget.position);
 
         if (distanceFromCurrentTarget <= 0.1f)
         {
             GetNextPosition();       
+        }
+
+        Ray enemyRay = new Ray(enemy.transform.position + Vector3.up * 0.5f, enemy.transform.forward);
+        RaycastHit hit = new RaycastHit();
+
+        Debug.DrawRay(animator.transform.position + Vector3.up * 0.5f, animator.transform.forward, Color.red);
+
+        /*
+        if(Physics.Raycast(enemyRay, out hit, 100))
+        {
+            Debug.Log("Enemy view is detecting: " + hit.collider.name);
+
+            if (hit.collider.tag == "Player")
+            {
+                animator.SetTrigger("hasSeenPlayer");
+            }
+        }
+        */
+
+        if(Physics.SphereCast(enemyRay, 0.3f, out hit, 100))
+        {
+            Debug.Log("Enemy view is detecting: " + hit.collider.name);
+
+            if (hit.collider.tag == "Player")
+            {
+                animator.SetTrigger("hasSeenPlayer");
+            }
         }
 
     }
