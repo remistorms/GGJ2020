@@ -5,17 +5,22 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int m_Health;
+
     private int currentHealt;
+    [Header("Enemy Stats")]
     public bool isAlive;
-    [SerializeField] private Animator m_EnemyAnimator;
-    [SerializeField] private NavMeshAgent m_EnemyAgent;
-    [SerializeField] private MeshRenderer m_EnemyMesh;
-    [SerializeField] private Transform[] m_PatrolPoints;
+    [SerializeField] private int m_Health;
     [SerializeField] private float m_TimeToStayAlert;
     [SerializeField] private float m_MoveSpeed;
     [SerializeField] private float m_RunSpeed;
 
+    [Header("Enemy Visuals")]
+    private Animator m_EnemyAnimator;
+    private NavMeshAgent m_EnemyAgent;
+    [SerializeField] private MeshRenderer m_EnemyMesh;
+    [SerializeField] private List<Transform> m_PatrolPoints;
+
+    //Private fields
     private Transform currentPatrolTarget;
     private int currentPatrolTargetIndex = 0;
 
@@ -30,11 +35,11 @@ public class Enemy : MonoBehaviour, IDamageable
         currentHealt = m_Health;
         m_EnemyAgent = GetComponent<NavMeshAgent>();
         m_EnemyAnimator = GetComponent<Animator>();
-        m_EnemyAgent.isStopped = true;
+        //m_EnemyAgent.isStopped = true;
         
     }
 
-    public Transform[] GetPatrolPoints()
+    public List<Transform> GetPatrolPoints()
     {
         return m_PatrolPoints;
     }
@@ -69,5 +74,10 @@ public class Enemy : MonoBehaviour, IDamageable
             currentHealt = 0;
             Die();
         }
+    }
+
+    public void SetPatrolPoints(List<Transform> _patrolPoints)
+    {
+        m_PatrolPoints = _patrolPoints;
     }
 }

@@ -184,11 +184,7 @@ MonoBehaviour:
   m_EnemyAnimator: {fileID: 0}
   m_EnemyAgent: {fileID: 0}
   m_EnemyMesh: {fileID: 8841949846918906614}
-  m_PatrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_PatrolPoints: []
   m_TimeToStayAlert: 5
   m_MoveSpeed: 3
   m_RunSpeed: 6

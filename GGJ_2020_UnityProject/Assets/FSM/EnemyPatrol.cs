@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyPatrol : StateMachineBehaviour
 {
-    [SerializeField] private Transform[] patrolPoints;
+    [SerializeField] private List<Transform> patrolPoints;
     private Transform currentPatrolTarget;
     public float distanceFromCurrentTarget;
     public int currentPatrolTargetIndex;
@@ -77,7 +77,7 @@ public class EnemyPatrol : StateMachineBehaviour
     {
         currentPatrolTargetIndex++;
 
-        if (currentPatrolTargetIndex >= patrolPoints.Length)
+        if (currentPatrolTargetIndex >= patrolPoints.Count)
         {
             currentPatrolTargetIndex = 0;
         }
