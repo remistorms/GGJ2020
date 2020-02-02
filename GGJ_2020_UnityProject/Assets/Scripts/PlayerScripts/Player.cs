@@ -67,6 +67,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         m_PlayerMovement.enabled = false;
         ManagerUI.instance.SwapScren(ScreenType.GameOverScreen);
+        ManagerSound.instance.PlayMusic(1);
     }
 }
 

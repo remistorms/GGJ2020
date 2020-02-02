@@ -53,6 +53,7 @@ public class StoryScreen : MonoBehaviour
             {
                 Debug.Log("START GAMEPLAY HERE");
                 ManagerGame.instance.StartGame();
+                ManagerSound.instance.PlayMusic(0);
             }
         }
     }

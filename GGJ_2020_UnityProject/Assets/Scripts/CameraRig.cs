@@ -10,6 +10,7 @@ public class CameraRig : MonoBehaviour
     [SerializeField] private float followSpeed;
     [SerializeField] private float rotateSpeed;
     public Vector3 currentPivotRotation;
+    public bool canRotate = false;
 
     private void Start()
     {
@@ -44,9 +45,21 @@ public class CameraRig : MonoBehaviour
     private void RotateCamera(float angle)
     {
         //  cameraPivot.transform.Rotate(Vector3.up, angle);
-       currentPivotRotation = currentPivotRotation + new Vector3(0, angle, 0);
+        if (canRotate)
+        {
+            StartCoroutine(_RotateCamera(angle));
+        }
+
+    }
+
+    IEnumerator _RotateCamera(float angle)
+    {
+        canRotate = false;
+        currentPivotRotation = currentPivotRotation + new Vector3(0, angle, 0);
         cameraPivot.transform.DORotate(currentPivotRotation, 0.5f);
-    } 
+        yield return new WaitForSeconds(0.5f);
+        canRotate = true;
+    }
 
     private void LateUpdate()
     {
