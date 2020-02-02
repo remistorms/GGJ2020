@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerState: 0
-  m_PlayerHealth: 0
+  m_PlayerHealth: 1
   m_PlayerRepair: {fileID: 0}
   m_PlayerMovement: {fileID: 0}
   m_PlayerInteractor: {fileID: 0}

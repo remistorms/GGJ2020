@@ -7,6 +7,7 @@ public class Reparable : MonoBehaviour
     public ReparableState currentState;
     [SerializeField] private int m_RequiredBoltsToRepair;
     [HideInInspector] public int boltsNeededToRepair;
+    public GameObject objectToToggle;
     public float repairPercentage;
 
     private void Awake()
@@ -36,6 +37,11 @@ public class Reparable : MonoBehaviour
     public void Repaired()
     {
         Debug.Log("Repaired");
+        if (objectToToggle != null)
+        {
+            objectToToggle.GetComponent<IToggleable>().Toggle();
+        }
+
     }
 }
 

@@ -8,15 +8,15 @@ public class ManagerUI : MonoBehaviour
     public static ManagerUI instance;
     //GAME SCREENS
     [Header("Game Screens")]
-    [SerializeField] private GameObject mainMenuScreen;
-    [SerializeField] private GameObject storyScreen;
-    [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private GameObject creditsScreen;
-    [SerializeField] private GameObject inGameScreen;
+    public GameObject mainMenuScreen;
+    public GameObject storyScreen;
+    public GameObject gameOverScreen;
+    public GameObject creditsScreen;
+    public GameObject inGameScreen;
     //HELPER SCREENS
     [Header("Helper Screens")]
-    [SerializeField] private FaderScreen faderScreen;
-    [SerializeField] private PopUpMessageScreen popUpMessageScreen;
+    public FaderScreen faderScreen;
+    public PopUpMessageScreen popUpMessageScreen;
 
     private ScreenType currentScreenType;
 
@@ -75,6 +75,8 @@ public class ManagerUI : MonoBehaviour
         CenterAllScreens();
         DisableAllScreens();
         faderScreen.enabled = true;
+
+        SwapScren(ScreenType.MainMenu);
     }
 
     public void CenterAllScreens()
@@ -128,6 +130,21 @@ public class ManagerUI : MonoBehaviour
             Debug.Log("Switch to Game Over Screen");
             SwapScren(ScreenType.CreditsScreen);
         }
+    }
+
+    public void OpenCreditsScreen()
+    {
+        SwapScren(ScreenType.CreditsScreen);
+    }
+
+    public void ReturnToMenuScreen()
+    {
+        SwapScren(ScreenType.MainMenu);
+    }
+
+    public void StartStory()
+    {
+        SwapScren(ScreenType.StoryScreen);
     }
 
 }

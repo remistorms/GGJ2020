@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRepair : MonoBehaviour
 {
     public bool isReparing = false;
-    [SerializeField] private IntVariable m_PlayerBolts;
+    public IntVariable m_PlayerBolts;
     [SerializeField] private float m_RepairRadius;
 
     private PlayerMovement playerMovement;
@@ -31,7 +31,11 @@ public class PlayerRepair : MonoBehaviour
 
         if (Input.GetButtonUp("Fire2"))
         {
-            reparablesInRange.Clear();
+            if (reparablesInRange != null)
+            {
+                reparablesInRange.Clear();
+            }
+
             playerMovement.enabled = true;
             isReparing = false;
             if (currenReparable != null && currenReparable.currentState == ReparableState.Repairing)

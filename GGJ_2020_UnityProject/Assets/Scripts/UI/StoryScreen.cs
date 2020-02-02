@@ -12,6 +12,7 @@ public class StoryScreen : MonoBehaviour
     public string currentSentence;
     public TextMeshProUGUI dialogueLabel;
     public float letterPause = 0.1f;
+    public bool hasFinished = true;
 
     public void TypeSentence(string sentence)
     {
@@ -20,6 +21,7 @@ public class StoryScreen : MonoBehaviour
 
     IEnumerator _TypeSentence(string sentence)
     {
+        hasFinished = false;
         string[] array = sentence.Split(' ');
         dialogueLabel.text = array[0];
         for (int i = 1; i < array.Length; ++i)
@@ -27,28 +29,31 @@ public class StoryScreen : MonoBehaviour
             yield return new WaitForSeconds(letterPause);
             dialogueLabel.text += " " + array[i];
         }
+        hasFinished = true;
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Fire2"))
         {
-            TypeSentence("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,");
+            NextDialogue();
         }
     }
 
     public void NextDialogue()
     {
-        currentSentenceIndex++;
-        if (currentSentenceIndex < dialogue.sentences.Length)
+        if (hasFinished)
         {
-            TypeSentence(dialogue.sentences[currentSentenceIndex]);
+            currentSentenceIndex++;
+            if (currentSentenceIndex < dialogue.sentences.Length)
+            {
+                TypeSentence(dialogue.sentences[currentSentenceIndex]);
+            }
+            else
+            {
+                Debug.Log("START GAMEPLAY HERE");
+                ManagerGame.instance.StartGame();
+            }
         }
-        else
-        {
-            //TODO Fade In To gameplay
-            Debug.Log("START GAMEPLAY HERE");
-        }
-
     }
 }

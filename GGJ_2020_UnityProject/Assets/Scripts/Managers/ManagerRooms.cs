@@ -8,7 +8,7 @@ public class ManagerRooms : MonoBehaviour
     [SerializeField] private Room[] AllRooms;
     [SerializeField] private Room m_CurrentRoom;
     [SerializeField] private Room m_PreviousRoom;
-    [SerializeField] private Room m_NextRoom;
+    //[SerializeField] private Room m_NextRoom;
 
     private void Awake()
     {
@@ -29,14 +29,21 @@ public class ManagerRooms : MonoBehaviour
 
     IEnumerator _ChangeRooms(Door currentDoor, Door nextDoor)
     {
+        ManagerUI.instance.faderScreen.FadeOut(0.2f);
+        ManagerGame.instance.GetPlayerReference().m_PlayerMovement.enabled = false;
         m_PreviousRoom = currentDoor.parentRoom;
         m_CurrentRoom = nextDoor.parentRoom;
-        m_CurrentRoom.gameObject.SetActive(true);
-        yield return null;
-        //TODO Fade transitions to hide tricks
-        FindObjectOfType<Player>().transform.position = nextDoor.playerSpawnPoint.position;
+        yield return new WaitForSeconds(0.25f);
+    
+        //m_CurrentRoom.gameObject.SetActive(true);
+        //m_PreviousRoom.gameObject.SetActive(false);
+        ManagerGame.instance.GetPlayerReference().transform.position = nextDoor.playerSpawnPoint.position;
 
-        m_PreviousRoom.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        ManagerUI.instance.faderScreen.FadeIn(0.1f);
+        ManagerUI.instance.faderScreen.FadeIn(0.1f);
+        ManagerGame.instance.GetPlayerReference().m_PlayerMovement.enabled = true;
+
     }
 
     private void Start()

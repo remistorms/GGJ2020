@@ -27,13 +27,13 @@ public class CameraRig : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("LeftBumper"))
         {
             Debug.Log("Bumper Pressed");
             RotateCamera(90);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("RightBumper"))
         {
             Debug.Log("Bumper Pressed");
             RotateCamera(-90);
