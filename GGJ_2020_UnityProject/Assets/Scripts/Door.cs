@@ -17,7 +17,7 @@ public class Door : MonoBehaviour, IInteractable
         }
         else
         {
-            RoomManager.instance.ChangeRooms(this, linkedDoor);
+            ManagerRooms.instance.ChangeRooms(this, linkedDoor);
         }
     }
 
