@@ -6,12 +6,3 @@ public abstract class UIScreen : MonoBehaviour
 {
     public ScreenType screenType;
 }
-
-public enum ScreenType
-{
-    MainMenu,
-    OptionsScreen,
-    CreditsScreen,
-    InGameScreen,
-    GameOverScreen
-}

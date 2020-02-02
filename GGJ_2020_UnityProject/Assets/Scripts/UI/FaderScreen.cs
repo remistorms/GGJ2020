@@ -10,11 +10,13 @@ public class FaderScreen : MonoBehaviour
 
     public void FadeOut(float fadeTime)
     {
+        m_FadeImage.color = new Color(0,0,0,0);
         m_FadeImage.DOFade(1.0f, fadeTime);
     }
 
     public void FadeIn(float fadeTime)
     {
+        m_FadeImage.color = new Color(0, 0, 0, 1);
         m_FadeImage.DOFade(0.0f, fadeTime);
     }
 
