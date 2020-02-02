@@ -5,6 +5,7 @@ using UnityEngine;
 public class PopUpTrigger : MonoBehaviour
 {
     public string textToPopUp;
+    public int timesToDisplay;
 
     private void Awake()
     {
@@ -13,9 +14,14 @@ public class PopUpTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (timesToDisplay > 0)
         {
-            ManagerUI.instance.popUpMessageScreen.ShowPopUpMessage(textToPopUp);
+            if (other.tag == "Player")
+            {
+                ManagerUI.instance.popUpMessageScreen.ShowPopUpMessage(textToPopUp);
+                timesToDisplay--;
+            }
         }
+       
     }
 }

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerMovement m_PlayerMovement;
     public Interactor m_PlayerInteractor;
     public PlayerWeapon m_PlayerWeapon;
+    public bool isInvencible = false;
+    public MeshRenderer playerMesh;
 
     private void Awake()
     {
@@ -34,12 +36,37 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        if (!isInvencible)
+        {
+            StartCoroutine(_TakeDamage(damage));
+        }
+    }
+
+    IEnumerator _TakeDamage(int damage)
+    {
+        isInvencible = true;
+
         currentHealth -= damage;
+
         if (currentHealth <= 0)
         {
-            //TODO death state
             Debug.Log("DIE");
+            Die();
         }
+
+        for (int i = 0; i < 5; i++)
+        {
+            playerMesh.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            playerMesh.enabled = true;
+        }
+        isInvencible = false;
+    }
+
+    public void Die()
+    {
+        m_PlayerMovement.enabled = false;
+        ManagerUI.instance.SwapScren(ScreenType.GameOverScreen);
     }
 }
 

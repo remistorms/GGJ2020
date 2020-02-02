@@ -9,10 +9,17 @@ public class Reparable : MonoBehaviour
     [HideInInspector] public int boltsNeededToRepair;
     public GameObject objectToToggle;
     public float repairPercentage;
+    public Transform numberCanvas;
+    private Transform camera;
 
     private void Awake()
     {
         ResetReparable();
+    }
+
+    private void Start()
+    {
+        camera = Camera.main.transform;
     }
 
     public void Repair()
@@ -42,6 +49,11 @@ public class Reparable : MonoBehaviour
             objectToToggle.GetComponent<IToggleable>().Toggle();
         }
 
+    }
+
+    public void LateUpdate()
+    {
+        numberCanvas.LookAt(camera, Vector3.up);
     }
 }
 

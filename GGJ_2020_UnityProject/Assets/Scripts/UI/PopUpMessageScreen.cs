@@ -25,12 +25,8 @@ public class PopUpMessageScreen : MonoBehaviour
     {
         m_PopUpTextLabel.text = message;
         animator.SetBool("isShown", true);
-
-        if (disablesPlayerMovement)
-        {
-            //TODO
-        }
-        yield return null;
+        yield return new WaitForSeconds(5.0f);
+        HidePopUpMessage();
     }
 
     public void HidePopUpMessage()

@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private Transform currentPatrolTarget;
     private int currentPatrolTargetIndex = 0;
 
+    public GameObject loot;
+
     private void Awake()
     {
         ResetEnemy();
@@ -63,6 +65,14 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         isAlive = false;
         this.gameObject.SetActive(false);
+        int randomLoot = Random.Range(1, 5);
+        for (int i = 0; i < randomLoot; i++)
+        {
+            GameObject lootSpawned = Instantiate( loot, transform.position, Quaternion.identity) as GameObject;
+            Vector3 randomPosition = new Vector3( Random.Range(-.2f, .2f), 0, Random.Range(-.2f, .2f) );
+            lootSpawned.transform.position += randomPosition;
+            lootSpawned.GetComponent<PickupBolts>().lootBolts = Random.Range(10, 50);
+        }
         Debug.Log("Enemy was killed");
     }
 
@@ -76,8 +86,20 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.GetComponent<Player>().TakeDamage(5);
+        }
+    }
+
+
+    /*
     public void SetPatrolPoints(List<Transform> _patrolPoints)
     {
         m_PatrolPoints = _patrolPoints;
     }
+    */
+
 }

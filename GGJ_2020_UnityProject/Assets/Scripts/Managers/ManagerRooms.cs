@@ -29,29 +29,45 @@ public class ManagerRooms : MonoBehaviour
 
     IEnumerator _ChangeRooms(Door currentDoor, Door nextDoor)
     {
-        ManagerUI.instance.faderScreen.FadeOut(0.2f);
         ManagerGame.instance.GetPlayerReference().m_PlayerMovement.enabled = false;
-        m_PreviousRoom = currentDoor.parentRoom;
-        m_CurrentRoom = nextDoor.parentRoom;
-        yield return new WaitForSeconds(0.25f);
-    
-        //m_CurrentRoom.gameObject.SetActive(true);
-        //m_PreviousRoom.gameObject.SetActive(false);
-        ManagerGame.instance.GetPlayerReference().transform.position = nextDoor.playerSpawnPoint.position;
+        ManagerUI.instance.faderScreen.FadeOut(0.2f);
 
-        yield return new WaitForSeconds(0.25f);
-        ManagerUI.instance.faderScreen.FadeIn(0.1f);
-        ManagerUI.instance.faderScreen.FadeIn(0.1f);
+        yield return new WaitForSeconds(.2f);
+        //Room stuff
+        m_CurrentRoom = nextDoor.parentRoom;
+        currentDoor.parentRoom.HideRoom();
+        nextDoor.parentRoom.UnhideRoom();
+        //Player and camera positioning
+        Vector3 newPosition = currentDoor.linkedDoor.playerSpawnPoint.position;
+
+        ManagerGame.instance.GetPlayerReference().transform.position = newPosition;
+        ManagerGame.instance.cameraRig.transform.position = newPosition;
+        //Fade In
+        ManagerUI.instance.faderScreen.FadeIn(0.2f);
+
+        yield return new WaitForSeconds(0.2f);
+
         ManagerGame.instance.GetPlayerReference().m_PlayerMovement.enabled = true;
 
     }
 
     private void Start()
     {
-        foreach (var room in AllRooms)
+        //Get All Rooms
+        AllRooms = FindObjectsOfType<Room>();
+
+        /*
+        for (int i = 0; i < AllRooms.Length; i++)
         {
-            room.gameObject.SetActive(false);
+            AllRooms[i].transform.position = new Vector3(0, 100 * i, 0);
+            AllRooms[i].HideRoom();
         }
-        m_CurrentRoom.gameObject.SetActive(true);
+
+        m_CurrentRoom.UnhideRoom();
+
+        */
+
+        Transform spawnPoint = GameObject.FindWithTag("Respawn").transform;
+        ManagerGame.instance.GetPlayerReference().transform.position = spawnPoint.position;
     }
 }

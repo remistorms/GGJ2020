@@ -1,14 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class PickupBolts : MonoBehaviour, IInteractable
+public class PickupBolts : MonoBehaviour
 {
     public int lootBolts;
 
-    public void Interact(Interactor interactor)
+    private void OnTriggerEnter(Collider other)
     {
-        interactor.GetComponent<PlayerRepair>().AddBolts(lootBolts);
-        Destroy(gameObject);
+        if (other.tag == "Player")
+        {
+            other.GetComponent<PlayerRepair>().AddBolts(lootBolts);
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.up, Time.deltaTime * 45);
     }
 }

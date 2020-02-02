@@ -20,16 +20,4 @@ public class FaderScreen : MonoBehaviour
         m_FadeImage.DOFade(0.0f, fadeTime);
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            FadeIn(0.5f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            FadeOut(0.5f);
-        }
-    }
 }

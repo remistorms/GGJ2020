@@ -32,28 +32,24 @@ public class EnemyPatrol : StateMachineBehaviour
 
 
         distanceFromCurrentTarget = Vector3.Distance( animator.transform.position, currentPatrolTarget.position);
+ 
 
+        /*
         if (distanceFromCurrentTarget <= 0.1f)
         {
             GetNextPosition();       
+        }
+        */
+
+        if (navMeshAgent.remainingDistance <= 0.1f)
+        {
+            GetNextPosition();
         }
 
         Ray enemyRay = new Ray(enemy.transform.position + Vector3.up * 0.5f, enemy.transform.forward);
         RaycastHit hit = new RaycastHit();
 
         Debug.DrawRay(animator.transform.position + Vector3.up * 0.5f, animator.transform.forward, Color.red);
-
-        /*
-        if(Physics.Raycast(enemyRay, out hit, 100))
-        {
-            Debug.Log("Enemy view is detecting: " + hit.collider.name);
-
-            if (hit.collider.tag == "Player")
-            {
-                animator.SetTrigger("hasSeenPlayer");
-            }
-        }
-        */
 
         if(Physics.SphereCast(enemyRay, 0.3f, out hit, 100))
         {
@@ -75,6 +71,8 @@ public class EnemyPatrol : StateMachineBehaviour
 
     private void GetNextPosition()
     {
+        Debug.Log("Getting next position");
+
         currentPatrolTargetIndex++;
 
         if (currentPatrolTargetIndex >= patrolPoints.Count)

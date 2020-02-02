@@ -18,7 +18,7 @@ public class BoltBullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<IDamageable>() != null)
+        if (other.GetComponent<IDamageable>() != null && other.tag != "Player")
         {
             other.GetComponent<IDamageable>().TakeDamage(m_Damage);
             Debug.Log("bullet hit " + other.gameObject.name);

@@ -7,20 +7,23 @@ public class Room : MonoBehaviour
 {
     [SerializeField] private int m_RoomID;
     [SerializeField] private string m_RoomName;
-    [SerializeField] private Door[] m_DoorsInRoom;
+    //[SerializeField] private Door[] m_DoorsInRoom;
+    public GameObject blackBox;
 
-    public Enemy[] m_EnemiesInRoom;
-    public PatrolPoint[] m_EnemyPatrolPoints;
+    //public Enemy[] m_EnemiesInRoom;
+    //public PatrolPoint[] m_EnemyPatrolPoints;
 
     private void Start()
     {
-        ActivateRoom();
+        //ActivateRoom();
     }
 
+    /*
     public void ActivateRoom()
     {
-        m_EnemiesInRoom = GetComponentsInChildren<Enemy>();
-        m_EnemyPatrolPoints = GetComponentsInChildren<PatrolPoint>();
+        blackBox.SetActive(false);
+        //m_EnemiesInRoom = GetComponentsInChildren<Enemy>();
+        //m_EnemyPatrolPoints = GetComponentsInChildren<PatrolPoint>();
 
         List<Transform> patrolPointsTransforms = new List<Transform>();
 
@@ -34,5 +37,16 @@ public class Room : MonoBehaviour
             enemy.SetPatrolPoints(patrolPointsTransforms);
 
         }
+    }
+    */
+
+    public void HideRoom()
+    {
+        blackBox.SetActive(true);
+    }
+
+    public void UnhideRoom()
+    {
+        blackBox.SetActive(false);
     }
 }

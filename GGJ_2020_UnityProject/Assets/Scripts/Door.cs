@@ -24,7 +24,7 @@ public class Door : MonoBehaviour, IInteractable, IToggleable
     {
         if (isLocked)
         {
-            Debug.Log("Door Locked");
+            ManagerUI.instance.popUpMessageScreen.ShowPopUpMessage("Door Systems Broken... please fix nearby terminal to proceed");
         }
         else
         {

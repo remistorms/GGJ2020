@@ -8,6 +8,7 @@ public class ManagerGame : MonoBehaviour
     public GameState currentGameState;
 
     [SerializeField] private Player player;
+    public CameraRig cameraRig;
 
     public bool TryEnterGameState(GameState _newGameState)
     {

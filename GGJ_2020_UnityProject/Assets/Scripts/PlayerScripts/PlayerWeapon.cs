@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private GameObject m_BulletPrefab;
     [SerializeField] private Transform m_BulletSpawnPoint;
     [SerializeField] IntVariable m_PlayerBolts;
+    public GameObject weaponMesh;
 
     private void Update()
     {
@@ -26,5 +27,10 @@ public class PlayerWeapon : MonoBehaviour
             m_PlayerBolts.Value--;
         }
 
+    }
+
+    private void OnEnable()
+    {
+        weaponMesh.SetActive(true);
     }
 }

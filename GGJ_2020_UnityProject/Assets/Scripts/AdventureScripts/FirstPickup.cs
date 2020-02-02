@@ -8,5 +8,6 @@ public class FirstPickup : MonoBehaviour
     {
         ManagerUI.instance.inGameScreen.GetComponent<InGameScreen>().EnableBoltsUI();
         ManagerGame.instance.GetPlayerReference().m_PlayerRepair.enabled = true;
+        ManagerUI.instance.popUpMessageScreen.ShowPopUpMessage("You need bolts to repair things, use them wisely");
     }
 }
